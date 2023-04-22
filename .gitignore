@@ -53,3 +53,8 @@ dkms.conf
 
 #Apple file manager
 .DS_Store
+
+#Unix Excecutable files
+*
+!.
+!*/
