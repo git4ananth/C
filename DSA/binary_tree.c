@@ -77,6 +77,25 @@ void printPreorder(struct node *node)
     printPreorder(node->right);
 }
 
+struct node *minElement(struct node *node)
+{
+    struct node *temp = node;
+    while (temp->left != NULL)
+    {
+        temp = temp->left;
+    }
+    return temp;
+}
+struct node *maxElement(struct node *node)
+{
+    struct node *temp = node;
+    while (temp->right != NULL)
+    {
+        temp = temp->right;
+    }
+    return temp;
+}
+
 /* Driver code*/
 int main()
 {
@@ -104,6 +123,10 @@ int main()
     printf("\nPreorder traversal of binary tree is \n");
     printPreorder(root);
     printf("\n");
+    struct node *min = minElement(root);
+    printf("Min Element : %d\n", min->data);
+    struct node *max = maxElement(root);
+    printf("Max Element : %d\n", max->data);
 
     return 0;
 }
