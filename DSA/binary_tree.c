@@ -77,6 +77,7 @@ void printPreorder(struct node *node)
     printPreorder(node->right);
 }
 
+
 struct node *minElement(struct node *node)
 {
     struct node *temp = node;
@@ -86,6 +87,7 @@ struct node *minElement(struct node *node)
     }
     return temp;
 }
+
 struct node *maxElement(struct node *node)
 {
     struct node *temp = node;
@@ -95,6 +97,49 @@ struct node *maxElement(struct node *node)
     }
     return temp;
 }
+
+struct node *delete(struct node *root, int data)
+{
+    if (root == NULL)
+    {
+        return root;
+    }
+
+    if (data < root->data)
+    {
+        root->left = delete (root->left, data);
+    }
+    else if (data > root->data)
+    {
+        root->right = delete (root->right, data);
+    }
+    else
+    {
+        // Case 1: No child or only one child
+        if (root->left == NULL)
+        {
+            struct node *temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL)
+        {
+            struct node *temp = root->left;
+            free(root);
+            return temp;
+        }
+
+        // Case 2: Two children
+        struct node *temp = minElement(root->right);
+        printf("Temp data is here ::::: %d\n", temp->data);
+        root->data = temp->data;
+        root->right = delete (root->right, temp->data);
+
+    }
+
+    return root;
+}
+
 
 /* Driver code*/
 int main()
@@ -127,6 +172,8 @@ int main()
     printf("Min Element : %d\n", min->data);
     struct node *max = maxElement(root);
     printf("Max Element : %d\n", max->data);
+    struct node *deleted = delete (root, 7);
+    printf("Deleted element : %d\n", root->data);
 
     return 0;
 }
