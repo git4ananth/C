@@ -52,9 +52,7 @@ Mkfile.old
 dkms.conf
 
 #Apple file manager
-.DS_Store
+*.DS_Store
 
-#Unix Excecutable files
-#*
-#!.
-#!*/
+# Ignore files with no extensions
+.*
