@@ -53,6 +53,3 @@ dkms.conf
 
 #Apple file manager
 *.DS_Store
-
-# Ignore files with no extensions
-.*
