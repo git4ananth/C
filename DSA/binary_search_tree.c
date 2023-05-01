@@ -1,8 +1,11 @@
-// Ananth S
-// 22BKT0095
 // Binary Search Tree
-
 // Binary Search Tree operations in C
+// OPerations Include
+// Inorder Traversal
+// Insert A node
+// Delete A node
+// Max Value of Tree
+// Min Value of Tree
 
 #include <stdio.h>
 #include <stdlib.h>
