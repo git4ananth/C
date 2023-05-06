@@ -71,3 +71,10 @@ void traverse()
         printf("NULL");
     }
 }
+
+bool isEmpty(){
+    if (TOP == NULL){
+        return true;
+    }
+    return false;
+}
