@@ -6,7 +6,7 @@ struct Node
     int data;
     struct Node *next;
 };
-struct Node *head, *tail = NULL;
+struct Node *HEAD, *tail = NULL;
 
 int data = 0;
 int count = 0;
@@ -21,10 +21,10 @@ void delete_after_which(int after_which);
 void delete_from_end();
 void traverse();
 void search(int data);
+void bubble_sort();
 
 int main()
 {
-    menu();
     int choice = 0;
     while (choice != 9)
     {
@@ -71,6 +71,9 @@ int main()
             search(data);
             break;
         case 9:
+            bubble_sort();
+            break;
+        case 10:
             printf("Exiting...");
             exit(1);
             break;
@@ -92,15 +95,16 @@ void menu()
     printf("6. Delete Node at end\n");
     printf("7. Display the full list\n");
     printf("8. Search\n");
-    printf("9. Exit\n");
+    printf("9. Bubble Sort\n");
+    printf("10. Exit\n");
 }
 
 void insert_at_beg(int data)
 {
     struct Node *new_node = (struct Node *)malloc(sizeof(struct Node));
     new_node->data = data;
-    new_node->next = head;
-    head = new_node;
+    new_node->next = HEAD;
+    HEAD = new_node;
     count++;
 }
 
@@ -156,8 +160,8 @@ void delete_from_beg()
     if (count > 1)
     {
         struct Node *temp;
-        temp = head;
-        temp->next = head;
+        temp = HEAD;
+        temp->next = HEAD;
         free(temp);
         count--;
     }
@@ -169,9 +173,9 @@ void delete_from_beg()
 
 void delete_after_which(int after_which)
 {
-    struct Node *temp_head, *temp, *temp1;
-    temp_head = head;
-    if (temp_head == NULL)
+    struct Node *temp_HEAD, *temp, *temp1;
+    temp_HEAD = HEAD;
+    if (temp_HEAD == NULL)
     {
         printf("Empty list\n");
     }
@@ -196,16 +200,16 @@ void delete_after_which(int after_which)
 void delete_from_end()
 {
     struct Node *temp, *temp2;
-    temp = head;
+    temp = HEAD;
     if (temp == NULL)
     {
         printf("Linked List is Empty!\n");
     }
     else if (temp->next == NULL)
     {
-        head = NULL;
-        printf("%d deleted\n", head);
-        free(head);
+        HEAD = NULL;
+        printf("%d deleted\n", HEAD->data);
+        free(HEAD);
         count--;
     }
     else
@@ -216,7 +220,7 @@ void delete_from_end()
             temp = temp->next;
         }
         temp2->next = NULL;
-        printf("%d deleted\n", temp);
+        printf("%d deleted\n", temp->data);
         free(temp);
         count--;
     }
@@ -225,7 +229,7 @@ void delete_from_end()
 void traverse()
 {
     struct Node *temp;
-    temp = head;
+    temp = HEAD;
     printf("Linked list is : ");
     printf("%d-->", temp->data);
     while (temp->next != NULL)
@@ -240,7 +244,7 @@ void search(int data)
 {
     struct Node *ptr, *ptr2;
     int item, i = 0, flag;
-    ptr = head;
+    ptr = HEAD;
     if (ptr == NULL)
     {
         printf("Empty List\n");
@@ -270,3 +274,32 @@ void search(int data)
         }
     }
 }
+
+void swap(int *a, int *b)
+{
+    int *temp;
+    *temp = *a;
+    *a = *b;
+    *b = *temp;
+}
+
+void bubble_sort()
+{
+    struct Node *current, *index;
+    if (HEAD != NULL)
+    {
+        while (current != NULL)
+        {
+            index = current->next;
+            while (index != NULL)
+            {
+                if(index->data < current->data){
+                    swap(&current->data, &index->data);
+                }
+                index = index->next;
+            }
+            current = current->next;
+        }
+    }
+}
+
