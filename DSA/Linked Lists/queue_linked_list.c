@@ -1,73 +1,85 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node
-{
+struct Node {
     int data;
-    struct Node *next;
+    struct Node* next;
 };
-struct Node *HEAD = NULL;
-struct Node queue;
 
-int count = 0;
+struct Node* HEAD = NULL;
 
-void enqueue();
+void enqueue(int data);
 void dequeue();
 void peek();
 void traverse();
 void isEmpty();
 void isFull();
 
-void enqueue(int data)
-{
-    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
-    newNode->data = data;
+int main() {
+    traverse(); // Empty queue
+    enqueue(1000);
+    enqueue(2000);
+    traverse(); // Queue with 2000 -> 1000
+    peek(); // Peek at top element (2000)
+    dequeue();
+    traverse(); // Queue with 1000
+    isEmpty(); // False (queue not empty)
+    return 0;
+}
 
-    if (HEAD == NULL)
-    {
+void enqueue(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    if (HEAD == NULL) {
         newNode->next = NULL;
         HEAD = newNode;
-    }
-    else
-    {
-        newNode->next = HEAD;
-        HEAD = newNode;
-    }
-}
-
-void dequeue()
-{
-    struct Node *t1, *t2;
-    t1 = HEAD;
-    while (t1->next != NULL)
-    {
-        t2 = t1->next;
-        t1->next = NULL;
-        free(t2);
+    } else {
+        struct Node* temp = HEAD;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+        newNode->next = NULL;
     }
 }
 
-void traverse()
-{
-    struct Node *temp;
-    temp = HEAD;
+void dequeue() {
+    if (HEAD == NULL) {
+        printf("UNDERFLOW!\n");
+    } else {
+        struct Node* temp = HEAD;
+        HEAD = HEAD->next;
+        free(temp);
+    }
+}
+
+void peek() {
+    if (HEAD == NULL) {
+        printf("Queue is empty!\n");
+    } else {
+        printf("Top element: %d\n", HEAD->data);
+    }
+}
+
+void traverse() {
+    struct Node* temp = HEAD;
     printf("Queue : ");
-    printf("%d-->", temp->data);
-    while (temp->next != NULL)
-    {
-        temp = temp->next;
+    while (temp != NULL) {
         printf("%d-->", temp->data);
+        temp = temp->next;
     }
     printf("NULL\n");
 }
 
+void isEmpty() {
+    if (HEAD == NULL) {
+        printf("True\n");
+    } else {
+        printf("False\n");
+    }
+}
 
-// left - inside; right - outside
-// NULL->10->NULL;
-// enqueue(20);
-// NULL->20->10->NULL;
-// peak = 20;
-// dequeue();
-// NULL->20->NULL;
-// |counter| 10 <- 20 <- 30 <- 40 <- NULL;
-// NULL <- 40 <- 30 <- 20 <- 10 ||COUNTER|| 
+void isFull() {
+    /* Assuming linked list implementation doesn't have fixed capacity */
+    printf("False\n");
+}
